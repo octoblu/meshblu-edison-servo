@@ -40,8 +40,8 @@ class Plugin extends EventEmitter
 
     return unless payload
 
-    @servos.left?.pwMicroSeconds  payload.left  if payload.left?
-    @servos.right?.pwMicroSeconds payload.right if payload.right?
+    @servos.left?.pwMicroSeconds  parseInt payload.left  if payload.left?
+    @servos.right?.pwMicroSeconds parseInt payload.right if payload.right?
 
   onConfig: (device) =>
     debug 'onConfig', device
