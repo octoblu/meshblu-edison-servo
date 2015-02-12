@@ -8,10 +8,10 @@ Servo = require './src/servo'
 MESSAGE_SCHEMA =
   type: 'object'
   properties:
-    leftServoPulseWidth:
+    left:
       type: 'string'
       required: true
-    rightServoPulseWidth:
+    right:
       type: 'string'
       required: true
 
@@ -38,8 +38,10 @@ class Plugin extends EventEmitter
     debug 'onMessage', message
     payload = message.payload;
 
-    @servos.left?.psMicroSeconds  payload.left  if payload.left?
-    @servos.right?.psMicroSeconds payload.right if payload.right?
+    return unless payload
+
+    @servos.left?.pwMicroSeconds  payload.left  if payload.left?
+    @servos.right?.pwMicroSeconds payload.right if payload.right?
 
   onConfig: (device) =>
     debug 'onConfig', device
