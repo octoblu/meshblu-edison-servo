@@ -2,6 +2,7 @@
 util           = require 'util'
 {EventEmitter} = require 'events'
 debug          = require('debug')('meshblu-edison-servo')
+debug = require('debug')('meshblu:edison-servo:index')
 Servo = require './src/servo'
 
 MESSAGE_SCHEMA =
@@ -34,12 +35,14 @@ class Plugin extends EventEmitter
     @servos = {}
 
   onMessage: (message) =>
+    debug 'onMessage', message
     payload = message.payload;
 
     @servos.left?.psMicroSeconds  payload.left  if payload.left?
     @servos.right?.psMicroSeconds payload.right if payload.right?
 
   onConfig: (device) =>
+    debug 'onConfig', device
     @setOptions device.options
 
   setOptions: (options={}) =>
