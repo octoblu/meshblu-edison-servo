@@ -20,9 +20,11 @@ OPTIONS_SCHEMA =
     leftServoPin:
       type: 'integer'
       required: true
+      default: 6
     rightServoPin:
       type: 'integer'
       required: true
+      default: 9
 
 class Plugin extends EventEmitter
   constructor: ->
@@ -42,10 +44,12 @@ class Plugin extends EventEmitter
 
   setOptions: (options={}) =>
     @options = options
-    @servos.left  = new Servo options.leftServoPin
-    @servos.left.enable()
-    @servos.right = new Servo options.rightServoPin
-    @servos.right.enable()
+    if options.leftServoPin?
+      @servos.left  = new Servo options.leftServoPin
+      @servos.left.enable()
+    if options.rightServoPin?
+      @servos.right = new Servo options.rightServoPin
+      @servos.right.enable()
 
 module.exports =
   messageSchema: MESSAGE_SCHEMA
