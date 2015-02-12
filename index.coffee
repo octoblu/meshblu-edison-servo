@@ -49,12 +49,10 @@ class Plugin extends EventEmitter
 
   setOptions: (options={}) =>
     @options = options
-    if options.leftServoPin?
-      @servos.left  = new Servo options.leftServoPin
-      @servos.left.enable()
-    if options.rightServoPin?
-      @servos.right = new Servo options.rightServoPin
-      @servos.right.enable()
+    @servos.left  = new Servo(options.leftServoPin ? 6)
+    @servos.left.enable()
+    @servos.right = new Servo(options.rightServoPin ? 9)
+    @servos.right.enable()
 
 module.exports =
   messageSchema: MESSAGE_SCHEMA
